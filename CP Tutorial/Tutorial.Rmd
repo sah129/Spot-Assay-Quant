@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+author: "Sarah Hawbaker"
+date: "6/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("EBImage")
+```
+
+# Table of Contents
+
+
+fdafdafdafd
+
+# Overview
+
+There are two versions of this pipeline.  The GrayScaleInput version takes a grayscale image as input and immediately converts it to binary. If the user wants more control over the thresholding of the image, the BinaryInput pipeline will run the same quant but with a binary image as input.   Therefore the user must threshold the image themselves outside of CellProfiler before feeding it to the pipeline.  In this tutorial we will work with the GrayScaleInput Version.
+
+## Installing Cellprofiler
+
+Go to https://cellprofiler.org/ to download CellProfiler.  Go to **Downloads** and click the link for either macOS or Windows. Make sure to download **CellProfiler** and _not_ CellProfiler Analyst.  
+
+```{r}
+display(readImage("images/download1.png"))
+```
+
+## Running the Pipeline
+
+1.  **Open CellProfiler**.  When you first open CellProfiler you will see a black terminal window that may run a few lines of code.  This is just how the .exe file launches.  You can minimize this window, but do not close it, as the program will terminate.
+
+```{r}
+display(readImage("images/terminal.png"))
+```
+
+Close the introduction window.
+
+2.  **Load the pipeline**.  Download the Spot Assay pipeline from LINK.  Load into CellProfiler via **File >> Import >> Pipeline from file**. Your screen should look like this:
+
+```{r}
+display(readImage("images/overview.png"))
+```
+
+
+## Basic Navigation
+
+The pipeline consists of a series of modules which each apply a different function to the image.  The module list is outlined in red below, and a single module in blue.  
+
+```{r}
+display(readImage("images/overview_highlights.png"))
+```
+
+
+```{r}
+display(readImage("images/module settings.png"))
+```
+
+
+
+
+
+## Setting up the Ouput folders
+
+
+
+
+
+
+
+
+
+
+
+
+
+
