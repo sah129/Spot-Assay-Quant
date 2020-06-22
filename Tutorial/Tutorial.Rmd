@@ -1,13 +1,36 @@
 ---
-title: "Untitled"
+title: "SpotAssayQuant Tutorial "
 author: "Sarah Hawbaker"
-date: "6/19/2020"
+
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+library("knitr")
 library("EBImage")
+```
+
+```{r, echo=FALSE}
+df = data.frame(
+  "Output" = c("Spreadsheets", 
+               "Outlines", 
+               "Object Areas", 
+               "Object Numbers", 
+               "Rows", 
+               "Graphs"), 
+  "Associated Module" = c("ExportToSpreadsheet",
+                          "SaveImages 1", 
+                          "SaveImages 2", 
+                          "SaveImages 3", 
+                          "SaveImages 4", 
+                          "N/A" ), 
+  "File Format" = c(".csv", 
+                    ".png", 
+                    ".png", 
+                    ".png", 
+                    ".png", 
+                    "N/A"))
 ```
 
 # Table of Contents
@@ -16,20 +39,28 @@ library("EBImage")
 fdafdafdafd
 
 # Overview
-
-There are two versions of this pipeline.  The GrayScaleInput version takes a grayscale image as input and immediately converts it to binary. If the user wants more control over the thresholding of the image, the BinaryInput pipeline will run the same quant but with a binary image as input.   Therefore the user must threshold the image themselves outside of CellProfiler before feeding it to the pipeline.  In this tutorial we will work with the GrayScaleInput Version.
+This pipeline batch processes spot assay image sets and outputs all result data to .csv files.  In addition, it outputs a series of supplementary data and result images for spot checking.  You may find that most of this data is unecessary; it was made with a particularly problematic and inconsistent dataset in mind.  I have chosen to keep the auxillary data in for robust testing and verification.  See the `Input and Output` section for more information. 
 
 ## Installing Cellprofiler
 
-Go to https://cellprofiler.org/ to download CellProfiler.  Go to **Downloads** and click the link for either macOS or Windows. Make sure to download **CellProfiler** and _not_ CellProfiler Analyst.  
+CellProfiler is available here:  https://cellprofiler.org/.  Click **Downloads >> CellProfiler**. Make sure to download the basic version and not CellProfiler Analyst.
+
 
 ```{r}
 display(readImage("images/download1.png"))
 ```
 
+## Choosing the Pipeline
+
+Pipelines are located in the `Pipelines` folder.  There are two pipelines available, depending on the format of your input images.  For grayscale images, use the GrayScaleInput pipeline.  However, you may find that you want more control over the thresholding values and method.  In that case, there is a BinaryInput pipeline available.  Note that it is not difficult to modify the `Threshold` module in the GrayScaleInput pipeline, I have just created these two options for ease-of-use.  
+
+For sample thresholding macros in ImageJ, see the `FIJI Macros` folder.
+
+
 ## Running the Pipeline
 
-1.  **Open CellProfiler**.  When you first open CellProfiler you will see a black terminal window that may run a few lines of code.  This is just how the .exe file launches.  You can minimize this window, but do not close it, as the program will terminate.
+1.  **Open CellProfiler**.  Upon opening CellProfiler, you will see a black terminal window pop up and run a few lines of code.  This is just the .exe file launching.  Do not close this window while you are running the program, or it will exit.  I think it's best just to minimize it to avoid accidental termination.
+
 
 ```{r}
 display(readImage("images/terminal.png"))
@@ -37,7 +68,7 @@ display(readImage("images/terminal.png"))
 
 Close the introduction window.
 
-2.  **Load the pipeline**.  Download the Spot Assay pipeline from LINK.  Load into CellProfiler via **File >> Import >> Pipeline from file**. Your screen should look like this:
+2.  **Load the pipeline**.  Download your chosen pipeline from the `Pipelines` folder into a local directory.  Load into CellProfiler via **File >> Import >> Pipeline from File**. Your screen should look like this:
 
 ```{r}
 display(readImage("images/overview.png"))
@@ -59,17 +90,96 @@ display(readImage("images/module settings.png"))
 
 
 
+## Input and Output
+
+Before we run the pipeline, we must make sure the output all goes to the correct place.  The output is currently structured as follows: 
+
+* Spreadseets: This is where all the raw data is stored.  
+
+* Outlines:  This is a visual representation of the detected spots on each image. 
+
+* Object Areas: A visual respresentation of measured data drawn on the spots themselves.  Currently this is set to "Area" but it can be changed in the `DisplayDataOnImage` module.  
+
+* Object Numbers:  Similar to the Object Areas folder, but with the individual spot numbers displayed on each spot.  This is useful to verify that the rows are being grouped correctly. 
+
+* Rows:  A visualization of the row groupings.  
+
+* Graphs:  A place to store any user-generated graphs post-processing.  See the `Post Processing` section for more information.
 
 
-## Setting up the Ouput folders
+Should you not want this extra output, you can simply uncheck its associated module.  You do not need to worry about setting the output folder if the module is unchecked.
+
+```{r, echo = FALSE}
+kable(df)
+```
+
+
+## Setting up the Output Folder:
+
+1.  Click **View output settings**, which is located beneath the module list.  Set the **Default Output Folder** to your desired folder.  You do not need to change the **Output file format** setting.  If you want all your data to go into one folder, unsorted, you can skip the next step.  I don't recommend this as with large imagesets it will be messy to sort things out afterwards.
+
+2.  For each of the associated modules, find the **Output File Location** setting.  Set to your desired output folder.  I like to create all empty folders ahead of time inside my main output folder.  There is an example output folder HERE for reference.
+
+If you structure your output this way, select  **Default Output Folder sub-folder** from the drop-down menu and choose your folder from there.  Do this for each "SaveImages" module and the "Export to Spreadsheet" module.
+
+
+```{r, echo=FALSE}
+display(readImage('images/output_subfolder.png'))
+```
 
 
 
+## Adding Input Files
 
 
+1.  Click on the **Images** module.  Drag and drop your files or folders into the pipeline.  To clear all files from the pipeline, go to **Edit >> Clear File List**.
+
+## Defining the Grid
+
+Before you run the pipline you will need to set up the "Grid" that determines how many rows and columns of spots you want to quantify.  Set this by clicking the **Define Grid** module and entering your values in the **Number of rows** and **Number of columns* fields.  The default settings are 7 and 4, respectively.
+
+If you are sure that the image size and spot placements will be identical for each image, you can change the **Define a grid for which cycle?** setting to **Once**.  Otherwise it should stay at **Each Cycle**.
+
+## Running the pipeline
+
+1.  Click **Analyze Images**.  The pipeline will start. Typically it will take a moment or two to start up, but after that it will run relatively fast.  As it begins to process images, you will see windows pop depending on which modules are set to visible.
+
+## Define Grid
+
+This is the first of two points in the pipeline where manual intervention is required. If you set the **Define a grid for which cycle?** setting to **Once** you will only need to do this step one.  Otherwise it will have to be done for each image.  
+
+Click to set the coordinates for the top-left spot and the bottom-right spot.  Keep setting until you feel comfortable that the grid is nearly correct.  We can edit later, so it does not need to be perfect.
+
+```{r, echo = FALSE}
+display(readImage('images/grid_module.png'))
+```
+
+## Edit Objects
+
+This is the second manual intervention. This module allows you to see the detected objects and edit them as needed.  Most images should not need any editing at all.  If you find that more than 10% need manual editing then either the settings are incorrect or this pipeline is not compatible with your dataset.  
+
+The edit module has a "Show help" which has detailed instructions for how to use it.  I will give a abridged version here, but I recommend to use the help module at first.  
+
+Note that you cannot edit if the `pan` or `zoom` button is selected.  Always make sure to deselect after using.
 
 
+The main commands you will need are: 
 
+* Toggle.  Press **T** to toggle the display between full colors and outlines.  This will make the objects easier to see and edit.
+
+* Edit mode:  **Right click** an object to go into edit mode. This will transform the object outline to a series of control points that you can then edit with the commands below.
+
+* Delete:  **X** to delete a series of points by selection, **D** to delete a single point after clicking it. 
+
+* Add:  **A** to add a control point at the location of your mouse after a single click.
+
+* Join:  **J** to join two areas of control points.  Even if not contiguous the areas will be measured and counted as one object.
+
+* Split:  **S** to split an object into two.  After pressing **S** you will click the two points that will serve as the dividing line.
+
+```{r, echo=FALSE}
+display(readImage('images/edit_module.png'))
+```
 
 
 
