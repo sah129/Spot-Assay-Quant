@@ -1,14 +1,19 @@
 ---
-title: "SpotAssayQuant Tutorial "
+title: 'SpotAssayQuant Tutorial '
 author: "Sarah Hawbaker"
-
-output: html_document
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    theme: united
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library("knitr")
 library("EBImage")
+library("kableExtra")
 ```
 
 ```{r, echo=FALSE}
@@ -33,15 +38,13 @@ df = data.frame(
                     "N/A"))
 ```
 
-# Table of Contents
+## Overview {#overview}
 
+This pipeline batch processes spot assay image sets and outputs all result data to .csv files.  In addition, it outputs a series of supplementary data and result images for spot checking.  You may find that most of this data is unecessary; it was made with a particularly problematic and inconsistent dataset in mind.  I have chosen to keep the auxillary data in for robust testing and verification.  See the [Input and Output](#io) section for more information. 
 
-fdafdafdafd
+## Installation and Setup
 
-# Overview
-This pipeline batch processes spot assay image sets and outputs all result data to .csv files.  In addition, it outputs a series of supplementary data and result images for spot checking.  You may find that most of this data is unecessary; it was made with a particularly problematic and inconsistent dataset in mind.  I have chosen to keep the auxillary data in for robust testing and verification.  See the `Input and Output` section for more information. 
-
-## Installing Cellprofiler
+### Installing Cellprofiler {#installation}
 
 CellProfiler is available here:  https://cellprofiler.org/.  Click **Downloads >> CellProfiler**. Make sure to download the basic version and not CellProfiler Analyst.
 
@@ -50,14 +53,14 @@ CellProfiler is available here:  https://cellprofiler.org/.  Click **Downloads >
 display(readImage("images/download1.png"))
 ```
 
-## Choosing the Pipeline
+### Choosing the Pipeline {#choosing}
 
 Pipelines are located in the `Pipelines` folder.  There are two pipelines available, depending on the format of your input images.  For grayscale images, use the GrayScaleInput pipeline.  However, you may find that you want more control over the thresholding values and method.  In that case, there is a BinaryInput pipeline available.  Note that it is not difficult to modify the `Threshold` module in the GrayScaleInput pipeline, I have just created these two options for ease-of-use.  
 
 For sample thresholding macros in ImageJ, see the `FIJI Macros` folder.
 
 
-## Running the Pipeline
+## Pipeline Setup
 
 1.  **Open CellProfiler**.  Upon opening CellProfiler, you will see a black terminal window pop up and run a few lines of code.  This is just the .exe file launching.  Do not close this window while you are running the program, or it will exit.  I think it's best just to minimize it to avoid accidental termination.
 
@@ -75,7 +78,7 @@ display(readImage("images/overview.png"))
 ```
 
 
-## Basic Navigation
+### Basic Navigation
 
 The pipeline consists of a series of modules which each apply a different function to the image.  The module list is outlined in red below, and a single module in blue.  
 
@@ -90,7 +93,7 @@ display(readImage("images/module settings.png"))
 
 
 
-## Input and Output
+### Input and Output {#io}
 
 Before we run the pipeline, we must make sure the output all goes to the correct place.  The output is currently structured as follows: 
 
@@ -104,7 +107,7 @@ Before we run the pipeline, we must make sure the output all goes to the correct
 
 * Rows:  A visualization of the row groupings.  
 
-* Graphs:  A place to store any user-generated graphs post-processing.  See the `Post Processing` section for more information.
+* Graphs:  A place to store any user-generated graphs post-processing.  See the [Post Processing](#postprocessing) section for more information.
 
 
 Should you not want this extra output, you can simply uncheck its associated module.  You do not need to worry about setting the output folder if the module is unchecked.
@@ -114,13 +117,13 @@ kable(df)
 ```
 
 
-## Setting up the Output Folder:
+### Setting up the Output Folder:
 
 1.  Click **View output settings**, which is located beneath the module list.  Set the **Default Output Folder** to your desired folder.  You do not need to change the **Output file format** setting.  If you want all your data to go into one folder, unsorted, you can skip the next step.  I don't recommend this as with large imagesets it will be messy to sort things out afterwards.
 
 2.  For each of the associated modules, find the **Output File Location** setting.  Set to your desired output folder.  I like to create all empty folders ahead of time inside my main output folder.  There is an example output folder HERE for reference.
 
-If you structure your output this way, select  **Default Output Folder sub-folder** from the drop-down menu and choose your folder from there.  Do this for each "SaveImages" module and the "Export to Spreadsheet" module.
+If you structure your output this way, select  **Default Output Folder sub-folder** from the drop-down menu and choose your folder from there.  Do this for each **SaveImages** module and the **Export to Spreadsheet** module.
 
 
 ```{r, echo=FALSE}
@@ -129,22 +132,25 @@ display(readImage('images/output_subfolder.png'))
 
 
 
-## Adding Input Files
+### Adding Input Files
 
 
 1.  Click on the **Images** module.  Drag and drop your files or folders into the pipeline.  To clear all files from the pipeline, go to **Edit >> Clear File List**.
 
-## Defining the Grid
+
+### Defining the Grid
 
 Before you run the pipline you will need to set up the "Grid" that determines how many rows and columns of spots you want to quantify.  Set this by clicking the **Define Grid** module and entering your values in the **Number of rows** and **Number of columns* fields.  The default settings are 7 and 4, respectively.
 
 If you are sure that the image size and spot placements will be identical for each image, you can change the **Define a grid for which cycle?** setting to **Once**.  Otherwise it should stay at **Each Cycle**.
 
-## Running the pipeline
+
+## Running the Pipeline
+
 
 1.  Click **Analyze Images**.  The pipeline will start. Typically it will take a moment or two to start up, but after that it will run relatively fast.  As it begins to process images, you will see windows pop depending on which modules are set to visible.
 
-## Define Grid
+### Define Grid
 
 This is the first of two points in the pipeline where manual intervention is required. If you set the **Define a grid for which cycle?** setting to **Once** you will only need to do this step one.  Otherwise it will have to be done for each image.  
 
@@ -154,7 +160,7 @@ Click to set the coordinates for the top-left spot and the bottom-right spot.  K
 display(readImage('images/grid_module.png'))
 ```
 
-## Edit Objects
+### Edit Objects
 
 This is the second manual intervention. This module allows you to see the detected objects and edit them as needed.  Most images should not need any editing at all.  If you find that more than 10% need manual editing then either the settings are incorrect or this pipeline is not compatible with your dataset.  
 
@@ -180,6 +186,20 @@ The main commands you will need are:
 ```{r, echo=FALSE}
 display(readImage('images/edit_module.png'))
 ```
+
+
+
+## Post Processing {#postprocessing}
+
+When the pipeline is completed you will see this pop-up:
+
+```{r, echo=FALSE}
+display(readImage('images/done.png'))
+```
+
+Go to the **Default Output Folder** to view your results.
+
+The data is summarized and compiled using a python script.  If you are familiar with Python you can run the script.  It is available as a Jupyter Notebook file and can be found in the `Scripts` folder.  Otherwise, I am working on hosting the tool on the lab website for easy use.  Until then, email me you "Spreadsheets" folder and I'll run the script for you.
 
 
 
