@@ -1,0 +1,10 @@
+setAutoThreshold("Default dark");
+//run("Threshold...");
+setThreshold(35, 255);
+//setThreshold(35, 255);
+setOption("BlackBackground", true);
+run("Convert to Mask");
+run("Close");
+path = getDirectory("image");
+selectWindow(getTitle());
+saveAs("tiff",path + getTitle()+"_bin");
