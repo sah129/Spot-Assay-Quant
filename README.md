@@ -5,14 +5,6 @@ Spot Assay Quantification Pipeline for the O'Donnell Lab, University of Pittsbur
 
 1.  Download CellProfiler: https://cellprofiler.org/
 
-2.  Download the appropriate pipeline from the [Pipeline](Pipelines) folder.  For a more detailed explanation of which pipeline to use, see the [Tutorial](Tutorial/Tutorial.pdf).
+2.  Follow the [Tutorial](Tutorial/Tutorial.pdf) to set up and run the pipeline.
 
-3.  Open CellProfiler
-
-4.  **Import >> Pipeline from file** and select the pipeline you downloaded in Step 2.
-
-5.  **Configure the input and output folders**.  See - [Tutorial](Tutorial/Tutorial.html).
-
-6.  Click **Analyze Images**.
-
-7.  Run result directory through CPGraphSort (upcoming!)
+7.  Run result directory through CPGraphSort (Coming soon!)
