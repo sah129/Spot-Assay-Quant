@@ -153,7 +153,7 @@ If you are sure that the image size and spot placements will be identical for ea
 
 CellProfiler allows you to create classifers that each spot can belong to.  For our purposes, we need the image to be grouped by rows.  Therefore each spot is assigned to a row depending on its y-coordinate value.  This allows us to calculate the total area for each row after the pipeline has finished running.
 
-1.  Defining the Bins 
+**Defining the Bins**
 
 Click on the **Classify Objects** module.  Make sure all of your settings match the image below.  
 
@@ -162,7 +162,7 @@ display(readImage('images/classify_settings.png'))
 ```
 
 
-You will need change two fields.  First is the **custom thresholds** field.  These are the values that define the bins.  Note that these values are for the **Center_Y** position, meaning that the center of the spot, not necessarily the whole spot, needs to fall inside the bin.  In the example below the values are set to `0,100,200,250,350,450,500` to define 7 rows.  
+You will need change two fields.  First is the **Custom Threshold Values** field.  These are the values that define the bins.  Note that these values are for the **Center_Y** position, meaning that the center of the spot, not necessarily the whole spot, needs to fall inside the bin.  In the example below the values are set to `0,100,200,250,350,450,500` to define 7 rows.  
 
 ```{r,echo=FALSE}
 display(readImage('images/classify_binned.png'))
@@ -170,7 +170,7 @@ display(readImage('images/classify_binned.png'))
 
 Note that you do not need to set the upper bound, but you do need to include 0.
 
-2.  Entering the bin names
+**Naming the Bins**
 
 For however many rows you have, you will need that many names + 1.  I encourage you to stick to the naming convention shown in the example, where for 7 rows you have **Row1, Row2,...,Row7** as well a **Row0** that CellProfiler requires to put anything it is unable to classify.  These define the column headers for the .csv output file.
 
