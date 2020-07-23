@@ -1,9 +1,0 @@
-path = getDirectory("image");
-orig = getTitle();
-orig_no_ext = replace(orig, ".tif", "");  
-
-setOption("BlackBackground", true);
-run("Convert to Mask");
-
-saveAs("tiff", orig_no_ext + "_bin");
-close();
