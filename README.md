@@ -7,6 +7,8 @@ Spot Assay Quantification Pipeline for the O'Donnell Lab, University of Pittsbur
   
   CellProfiler Spot Assay Pipeline: https://vimeo.com/441173290
   
+  CellProfiler Edit Mode Commands: https://vimeo.com/441200392
+  
   
 ## Instructions
 
