@@ -5,6 +5,8 @@ Spot Assay Quantification Pipeline for the O'Donnell Lab, University of Pittsbur
 
   ImageJ Batch Cropping: https://vimeo.com/441141948
   
+  ImageJ Batch Conversion to Binary: 
+  
   CellProfiler Spot Assay Pipeline: https://vimeo.com/441173290
   
   CellProfiler Edit Mode Commands: https://vimeo.com/441200392
