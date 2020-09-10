@@ -98,7 +98,7 @@ display(readImage("images/module settings.png"))
 
 Before we run the pipeline, we must make sure the output all goes to the correct place.  The output is currently structured as follows: 
 
-* Spreadseets: This is where all the raw data is stored.  
+* Spreadsheets: This is where all the raw data is stored.  
 
 * Outlines:  This is a visual representation of the detected spots on each image. 
 
@@ -237,7 +237,12 @@ display(readImage('images/done.png'))
 
 Go to the **Default Output Folder** to view your results.
 
-The data is summarized and compiled using a Python script.  If you are familiar with Python the script is available as a Jupyter Notebook and can be found in the `Scripts` folder.  Otherwise, I am working on hosting the tool on the lab website for easy use.  Until then, email me your "Spreadsheets" folder and I'll run the script for you.
+You can use the [Spot Assay Sorting Tool](https://odonnelllab.shinyapps.io/CPGraphSortR/?_ga=2.42079597.937617316.1599767268-806153350.1599767268) to sort your output.  The source code is available [here](https://github.com/sah129/CPGraphSortR).  There is also a Jupyter Notebook version of the tool [here](https://github.com/sah129/Spot-Assay-Quant/blob/master/Scripts/generate_output.ipynb) that I have kept available for anyone interested.
+
+```{r, echo = FALSE}
+display(readImage('images/graphsort-1.png'))
+```
+
 
 
 
