@@ -20,4 +20,4 @@ Spot Assay Quantification Pipeline for the O'Donnell Lab, University of Pittsbur
 
 2.  Follow the [Tutorial](Tutorial/Tutorial.pdf) to set up and run the pipeline. 
 
-3.  Run result directory through [CPGraphSort](https://odonnelllab.shinyapps.io/CPGraphSortR/?_ga=2.42079597.937617316.1599767268-806153350.1599767268).  See Tutorial for more details.
+3.  Run result directory through [CPGraphSort](https://odonnelllab.shinyapps.io/CPGraphSortR).  See Tutorial for more details.
