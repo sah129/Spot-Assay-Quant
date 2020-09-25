@@ -1,5 +1,5 @@
 ---
-title: 'SpotAssayQuant Tutorial '
+title: 'Spot Assay Quant Tutorial '
 author: "Sarah Hawbaker"
 output:
   pdf_document:
@@ -8,6 +8,7 @@ output:
   html_document:
     theme: united
     toc: yes
+urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +48,7 @@ This pipeline batch processes spot assay image sets and outputs all result data 
 
 ### Installing Cellprofiler {#installation}
 
-CellProfiler is available here:  https://cellprofiler.org/.  Click **Downloads >> CellProfiler**. Make sure to download the basic version and not CellProfiler Analyst.
+CellProfiler is available [here](https://cellprofiler.org/).  Click **Downloads >> CellProfiler**. Make sure to download the basic version and not CellProfiler Analyst.
 
 
 ```{r}
